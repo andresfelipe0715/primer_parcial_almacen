@@ -43,7 +43,7 @@ public class ArticuloController {
         }
         return new ResponseEntity(articulos,HttpStatus.OK);
     }
-    @PutMapping("/articulo/{id}")
+    @PutMapping("/articulo/{codigo}")
     public ResponseEntity editarArticulo(@PathVariable String codigo, @RequestBody Articulo articulo){
         Optional<Articulo> articuloBD = articuloRepository.findByCodigo(codigo);
         if (articuloBD.isPresent()){
@@ -54,6 +54,7 @@ public class ArticuloController {
                 articuloBD.get().setFechaRegistro(articulo.getFechaRegistro());
                 articuloBD.get().setPrecioVenta(articulo.getPrecioVenta());
                 articuloBD.get().setPrecioCompra(articulo.getPrecioCompra());
+                articuloBD.get().setCategoria(articulo.getCategoria());
 
 
                 articuloRepository.save(articuloBD.get());
@@ -64,9 +65,9 @@ public class ArticuloController {
         }
         return ResponseEntity.notFound().build();
     }
-    @DeleteMapping("/articulo/{id}")
-    public ResponseEntity eliminarUsuario(@PathVariable Long codigo){
-        Optional<Articulo> articuloBD = articuloRepository.findById(codigo);
+    @DeleteMapping("/articulo/{codigo}")
+    public ResponseEntity eliminarArticulo(@PathVariable String codigo){
+        Optional<Articulo> articuloBD = articuloRepository.findByCodigo(codigo);
         if (articuloBD.isPresent()){
             articuloRepository.delete(articuloBD.get());
             return ResponseEntity.noContent().build();

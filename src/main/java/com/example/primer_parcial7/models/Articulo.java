@@ -12,14 +12,12 @@ import java.util.Date;
 public class Articulo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long codigo;
+    private String codigo;
     @Column(length = 100,nullable = false)
     private String nombre;
     @Column(length = 300,nullable = false)
     private String descripcion;
-    @ManyToMany
-    @JoinColumn(name = "Id_category")
-    @Column(length = 20,nullable = false)
+    @ManyToOne
     private Category categoria;
 
     private Date fechaRegistro;
