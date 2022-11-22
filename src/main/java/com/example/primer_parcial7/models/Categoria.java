@@ -4,19 +4,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "categories")
-public class Category {
+@Table(name = "categorias")
+
+public class Categoria {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(length = 100,nullable = false)
+    @Column(length = 100, nullable = false)
     private String nombre;
-    @Column(length = 300,nullable = false)
+    @Column(length = 300, nullable = false)
     private String descripcion;
-
 }

@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,18 +23,19 @@ public class ArticuloController {
             return new ResponseEntity(articulo, HttpStatus.OK);
         }
         return ResponseEntity.notFound().build();
-
     }
-    @PostMapping(value = "/articulo")
-    public ResponseEntity crearArticulo(@RequestBody Articulo articulo){
-        try {
+
+    @PostMapping("/articulo")
+    public ResponseEntity crearArticulo (@RequestBody Articulo articulo){
+        try{
             articuloRepository.save(articulo);
-            return new ResponseEntity(articulo,HttpStatus.CREATED);
+            return new ResponseEntity(articulo, HttpStatus.CREATED);
         }catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
-    @GetMapping(value = "/articulos")
+
+    @GetMapping("/articulos")
     public ResponseEntity listarArticulos(){
         List<Articulo> articulos = articuloRepository.findAll();
         if (articulos.isEmpty()){
@@ -43,28 +43,30 @@ public class ArticuloController {
         }
         return new ResponseEntity(articulos,HttpStatus.OK);
     }
+
     @PutMapping("/articulo/{codigo}")
     public ResponseEntity editarArticulo(@PathVariable String codigo, @RequestBody Articulo articulo){
         Optional<Articulo> articuloBD = articuloRepository.findByCodigo(codigo);
         if (articuloBD.isPresent()){
             try {
+                articuloBD.get().setCodigo(articulo.getCodigo());
                 articuloBD.get().setNombre(articulo.getNombre());
                 articuloBD.get().setDescripcion(articulo.getDescripcion());
-                articuloBD.get().setStock(articulo.getStock());
                 articuloBD.get().setFechaRegistro(articulo.getFechaRegistro());
+                articuloBD.get().setCategoria(articulo.getCategoria());
+                articuloBD.get().setStock(articulo.getStock());
                 articuloBD.get().setPrecioVenta(articulo.getPrecioVenta());
                 articuloBD.get().setPrecioCompra(articulo.getPrecioCompra());
-                articuloBD.get().setCategoria(articulo.getCategoria());
-
-
                 articuloRepository.save(articuloBD.get());
                 return new ResponseEntity(articuloBD,HttpStatus.OK);
             }catch (Exception e){
                 return ResponseEntity.badRequest().build();
             }
+
         }
         return ResponseEntity.notFound().build();
     }
+
     @DeleteMapping("/articulo/{codigo}")
     public ResponseEntity eliminarArticulo(@PathVariable String codigo){
         Optional<Articulo> articuloBD = articuloRepository.findByCodigo(codigo);
@@ -74,4 +76,5 @@ public class ArticuloController {
         }
         return ResponseEntity.notFound().build();
     }
+
 }
