@@ -51,7 +51,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         return  new ResponseEntity(usuarios, HttpStatus.OK);
     }
 
-    @Override
+    /*@Override
     public ResponseEntity<List<Usuario>> allUsersByNameAndLastName(String nombre, String apellidos) {
         List<Usuario> usuarios= usuarioRepository.findAllByNombreAndApellidos(nombre,apellidos);;
         if(usuarios.isEmpty()){
@@ -59,7 +59,7 @@ public class UsuarioServiceImpl implements UsuarioService{
         }
         return  new ResponseEntity(usuarios, HttpStatus.OK);
     }
-
+*/
     @Override
     public ResponseEntity<List<Usuario>> allUsersByName(String nombre) {
         List<Usuario> usuarios= usuarioRepository.findAllByNombre(nombre);

@@ -46,7 +46,7 @@ public class ArticuloController {
     public ResponseEntity getArticulo(@PathVariable String codigo,@RequestHeader(value="Authorization") String token) {
         try{
             if(jwtUtil.getKey(token) != null) {
-                return articuloService.getArticleFindBycodige(codigo);
+                return articuloService.getArticleFindBycodigo(codigo);
             }
             return ResponseEntity.badRequest().build();
         }catch (Exception e){

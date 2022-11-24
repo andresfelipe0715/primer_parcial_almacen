@@ -12,6 +12,8 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig {
+
+   //para proteger los endpoint
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws  Exception{
         http.cors().and().csrf().disable()

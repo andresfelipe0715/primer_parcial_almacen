@@ -52,18 +52,6 @@ public class UsuarioController {
 
     }
 
-    @GetMapping(value="/usuarios/{nombre}/{apellidos}")
-    public ResponseEntity listarPorNombreApellidos(@PathVariable  String nombre, @PathVariable String apellidos, @RequestHeader(value="Authorization") String token ){
-        try{
-            if(jwtUtil.getKey(token) != null) {
-                return usuarioService.allUsersByNameAndLastName(nombre,apellidos);
-            }
-            return ResponseEntity.badRequest().build();
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token no valido");
-        }
-
-    }
     @GetMapping(value="/usuarios/nombre/{nombre}")
     public ResponseEntity listarPorNombre(@PathVariable  String nombre , @RequestHeader(value="Authorization") String token){
         try{

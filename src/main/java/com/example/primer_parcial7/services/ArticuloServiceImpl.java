@@ -26,7 +26,7 @@ public class ArticuloServiceImpl implements ArticuloService {
     }
 
     @Override
-    public ResponseEntity<Articulo> getArticleFindBycodige(String codigo) {
+    public ResponseEntity<Articulo> getArticleFindBycodigo(String codigo) {
         Optional articulo = articuloRepository.findByCodigo(codigo);
         if (articulo.isPresent()) {
             return new ResponseEntity(articulo, HttpStatus.OK);
@@ -37,17 +37,14 @@ public class ArticuloServiceImpl implements ArticuloService {
 
     @Override
     public ResponseEntity<Articulo> createArticle(Articulo articulo) {
-        //long idctg=articulo.getCategoria().getId_ctg();
-        //Optional<Categoria> categoria=categoriaRepository.findById(idctg);
-        // if(categoria.isPresent()) {
+
         try {
             articuloRepository.save(articulo);
             return new ResponseEntity(articulo, HttpStatus.CREATED);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
-        //}
-        // return ResponseEntity.notFound().build();
+
     }
 
     @Override
@@ -63,9 +60,6 @@ public class ArticuloServiceImpl implements ArticuloService {
     @Override
     public ResponseEntity<Articulo> editArticle(String codigo, Articulo articulo) {
         Optional<Articulo> articuloBD =articuloRepository.findByCodigo(codigo);
-        //long idctg=articulo.getCategoria().getId_ctg();
-        //Optional<Categoria> categoria=categoriaRepository.findById(idctg);
-        //if(categoria.isPresent()) {
         if (articuloBD.isPresent()) {
             try {
                 articuloBD.get().setCodigo(articulo.getCodigo());
@@ -86,7 +80,6 @@ public class ArticuloServiceImpl implements ArticuloService {
 
         }
         return ResponseEntity.notFound().build();
-        // }
-        //return ResponseEntity.notFound().build();
+
     }
 }

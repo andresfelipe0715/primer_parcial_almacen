@@ -14,7 +14,6 @@ public class CategoriaServiceImpl implements CategoriaService{
     @Autowired
     private CategoriaRepository categoriaRepository;
 
-    //private JWTUtil jwtUtil;
     @Override
     public ResponseEntity<Categoria> createCategory(Categoria categoria) {
         try {
